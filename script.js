@@ -1,4 +1,4 @@
-const API = "http://localhost:5050/api";
+const API = "https://foodlink-backend-ekmj.onrender.com/api";
 
 
 /* =========================================================
