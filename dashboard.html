@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | FoodLink</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+    <nav class="navbar">
+
+        <div class="brand">
+            <div class="brand-icon">🌱</div>
+
+            <div>
+                <div class="brand-name">FoodLink</div>
+                <div class="brand-tagline">
+                    Redistribute. Reconnect. Reduce waste.
+                </div>
+            </div>
+        </div>
+
+        <div class="user-area">
+
+            <!-- THIS WILL SHOW THE ACTUAL ROLE -->
+            <span
+                id="userRoleBadge"
+                class="role-badge"
+            >
+                USER
+            </span>
+
+            <!-- EMAIL -->
+            <span
+                id="userEmail"
+                class="user-email"
+            >
+                User
+            </span>
+
+            <button
+                class="logout-btn"
+                onclick="logout()"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         MAIN DASHBOARD
+    ========================== -->
+
+    <main class="dashboard">
+
+        <!-- =========================
+             DASHBOARD HEADER
+        ========================== -->
+
+        <div class="dashboard-header">
+
+            <span class="section-label">
+                FOOD REDISTRIBUTION PLATFORM
+            </span>
+
+            <!-- NAME WILL BE INSERTED HERE -->
+            <h1 id="welcomeTitle">
+                Welcome, User
+            </h1>
+
+            <p>
+                Manage surplus food, discover available donations,
+                coordinate volunteers and reduce food waste in your
+                community.
+            </p>
+
+        </div>
+
+
+        <!-- =========================
+             STATISTICS
+        ========================== -->
+
+        <div
+            class="stats-grid"
+            id="statsGrid"
+        >
+            <div class="stat-card">
+                <div class="stat-icon">🍱</div>
+
+                <div>
+                    <span>Donations</span>
+                    <strong>0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🤝</div>
+
+                <div>
+                    <span>Requests</span>
+                    <strong>0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🚚</div>
+
+                <div>
+                    <span>Deliveries</span>
+                    <strong>0</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+
+                <div>
+                    <span>Users</span>
+                    <strong>0</strong>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- =========================
+             ROLE BASED DASHBOARD GRID
+        ========================== -->
+
+        <div class="dashboard-grid">
+
+
+            <!-- =========================
+                 PROVIDER PANEL
+            ========================== -->
+
+            <section
+                class="panel hidden"
+                id="providerPanel"
+            >
+
+                <div class="panel-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            FOOD PROVIDER
+                        </span>
+
+                        <h2>
+                            Donate Surplus Food
+                        </h2>
+
+                    </div>
+
+                    <span class="panel-icon">
+                        🍱
+                    </span>
+
+                </div>
+
+
+                <p>
+                    Publish extra food from restaurants, hotels,
+                    events, colleges or households before it goes
+                    to waste.
+                </p>
+
+
+                <form
+                    id="donationForm"
+                    class="form-grid"
+                >
+
+                    <div>
+                        <label for="foodName">
+                            Food Name
+                        </label>
+
+                        <input
+                            id="foodName"
+                            type="text"
+                            placeholder="e.g. Fresh Vegetable Rice"
+                            required
+                        >
+                    </div>
+
+
+                    <div>
+                        <label for="category">
+                            Category
+                        </label>
+
+                        <select
+                            id="category"
+                            required
+                        >
+                            <option value="">
+                                Select category
+                            </option>
+
+                            <option value="Cooked Food">
+                                Cooked Food
+                            </option>
+
+                            <option value="Bakery">
+                                Bakery
+                            </option>
+
+                            <option value="Fruits & Vegetables">
+                                Fruits & Vegetables
+                            </option>
+
+                            <option value="Packaged Food">
+                                Packaged Food
+                            </option>
+
+                            <option value="Dairy">
+                                Dairy
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+                        </select>
+                    </div>
+
+
+                    <div>
+                        <label for="quantity">
+                            Quantity
+                        </label>
+
+                        <input
+                            id="quantity"
+                            type="number"
+                            min="1"
+                            placeholder="Quantity"
+                            required
+                        >
+                    </div>
+
+
+                    <div>
+                        <label for="unit">
+                            Unit
+                        </label>
+
+                        <select id="unit">
+
+                            <option value="Meals">
+                                Meals
+                            </option>
+
+                            <option value="Kg">
+                                Kg
+                            </option>
+
+                            <option value="Boxes">
+                                Boxes
+                            </option>
+
+                            <option value="Items">
+                                Items
+                            </option>
+
+                        </select>
+                    </div>
+
+
+                    <div>
+                        <label for="city">
+                            City
+                        </label>
+
+                        <input
+                            id="city"
+                            type="text"
+                            placeholder="e.g. Jaipur"
+                            required
+                        >
+                    </div>
+
+
+                    <div>
+                        <label for="location">
+                            Pickup Location
+                        </label>
+
+                        <input
+                            id="location"
+                            type="text"
+                            placeholder="e.g. Vaishali Nagar"
+                            required
+                        >
+                    </div>
+
+
+                    <div>
+                        <label for="expiry">
+                            Available Until
+                        </label>
+
+                        <input
+                            id="expiry"
+                            type="datetime-local"
+                            required
+                        >
+                    </div>
+
+
+                    <div>
+                        <label for="description">
+                            Description
+                        </label>
+
+                        <textarea
+                            id="description"
+                            rows="3"
+                            placeholder="Describe the food, packaging, etc."
+                        ></textarea>
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="primary-btn"
+                    >
+                        Publish Donation →
+                    </button>
+
+                </form>
+
+            </section>
+
+
+
+            <!-- =========================
+                 RECIPIENT PANEL
+            ========================== -->
+
+            <section
+                class="panel hidden"
+                id="searchPanel"
+            >
+
+                <div class="panel-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            NGO / RECIPIENT
+                        </span>
+
+                        <h2>
+                            Find Available Food
+                        </h2>
+
+                    </div>
+
+                    <span class="panel-icon">
+                        🔎
+                    </span>
+
+                </div>
+
+
+                <p>
+                    Discover surplus food from restaurants,
+                    hotels, events and registered providers.
+                </p>
+
+
+                <div class="recipient-info">
+
+                    <div class="feature-card">
+
+                        <div class="feature-icon">
+                            🔎
+                        </div>
+
+                        <h3>
+                            Search surplus food
+                        </h3>
+
+                        <p>
+                            Find available food donations
+                            according to your requirements.
+                        </p>
+
+                    </div>
+
+
+                    <div class="feature-card">
+
+                        <div class="feature-icon">
+                            📍
+                        </div>
+
+                        <h3>
+                            Location-based
+                        </h3>
+
+                        <p>
+                            Find donations available near
+                            your organisation.
+                        </p>
+
+                    </div>
+
+
+                    <div class="feature-card">
+
+                        <div class="feature-icon">
+                            🎯
+                        </div>
+
+                        <h3>
+                            Smart Matching
+                        </h3>
+
+                        <p>
+                            Filter food according to your
+                            community's needs.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="primary-btn"
+                    onclick="goToSearch()"
+                >
+                    Search Available Food →
+                </button>
+
+            </section>
+
+
+
+            <!-- =========================
+                 VOLUNTEER PANEL
+            ========================== -->
+
+            <section
+                class="panel hidden"
+                id="volunteerPanel"
+            >
+
+                <div class="panel-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            VOLUNTEER
+                        </span>
+
+                        <h2>
+                            Pickup & Delivery
+                        </h2>
+
+                    </div>
+
+                    <span class="panel-icon">
+                        🚚
+                    </span>
+
+                </div>
+
+
+                <p>
+                    Help collect surplus food from providers
+                    and deliver it to recipient organisations.
+                </p>
+
+
+                <div class="volunteer-info">
+
+                    <div>
+
+                        <h3>
+                            Your Delivery Tasks
+                        </h3>
+
+                        <p>
+                            Tasks are automatically assigned when
+                            a food request is accepted.
+                            Available tasks can also be claimed.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        class="primary-btn"
+                        onclick="loadTasks()"
+                    >
+                        Refresh Tasks
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="taskList"
+                    class="mini-list"
+                >
+                    <div class="empty-state">
+                        Loading tasks...
+                    </div>
+                </div>
+
+            </section>
+
+
+
+            <!-- =========================
+                 ADMIN PANEL
+            ========================== -->
+
+            <section
+                class="panel hidden"
+                id="adminPanel"
+            >
+
+                <div class="panel-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            ADMIN
+                        </span>
+
+                        <h2>
+                            Platform Overview
+                        </h2>
+
+                    </div>
+
+                    <span class="panel-icon">
+                        🛡️
+                    </span>
+
+                </div>
+
+
+                <p>
+                    Monitor users, donations, requests and
+                    volunteer activity.
+                </p>
+
+
+                <div
+                    id="adminSummary"
+                    class="mini-list"
+                >
+                    <div class="empty-state">
+                        Loading platform data...
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 PROVIDER REQUEST MANAGEMENT
+            ========================== -->
+
+            <section
+                class="panel hidden"
+                id="requestManagementPanel"
+            >
+
+                <div class="panel-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            REQUEST MANAGEMENT
+                        </span>
+
+                        <h2>
+                            Food Requests
+                        </h2>
+
+                    </div>
+
+                    <span class="panel-icon">
+                        🤝
+                    </span>
+
+                </div>
+
+
+                <p>
+                    Review requests submitted for your
+                    food donations.
+                </p>
+
+
+                <div
+                    id="requestList"
+                    class="mini-list"
+                >
+                    <div class="empty-state">
+                        Loading requests...
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+
+
+
+        <!-- =========================
+             ACTIVITY
+        ========================== -->
+
+        <section
+            class="panel full-panel"
+            id="activityPanel"
+        >
+
+            <div class="panel-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        RECENT ACTIVITY
+                    </span>
+
+                    <h2>
+                        My Activity
+                    </h2>
+
+                </div>
+
+                <span class="panel-icon">
+                    📈
+                </span>
+
+            </div>
+
+
+            <p>
+                Recent actions connected to your FoodLink account.
+            </p>
+
+
+            <div
+                id="activityList"
+                class="activity-list"
+            >
+                <div class="empty-state">
+                    Loading activity...
+                </div>
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             IMPACT
+        ========================== -->
+
+        <section
+            class="panel full-panel"
+            id="impactPanel"
+        >
+
+            <div class="panel-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        OUR IMPACT
+                    </span>
+
+                    <h2>
+                        FoodLink Impact
+                    </h2>
+
+                </div>
+
+                <span class="panel-icon">
+                    🌍
+                </span>
+
+            </div>
+
+
+            <div class="impact-grid">
+
+                <div class="impact-card">
+                    <strong id="impactFood">0</strong>
+                    <span>Food Redistributed</span>
+                </div>
+
+                <div class="impact-card">
+                    <strong id="impactWaste">0</strong>
+                    <span>Waste Prevented</span>
+                </div>
+
+                <div class="impact-card">
+                    <strong id="impactPeople">0</strong>
+                    <span>People Helped</span>
+                </div>
+
+                <div class="impact-card">
+                    <strong id="impactCommunity">0</strong>
+                    <span>Community Members</span>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================
+         TOAST
+    ========================== -->
+
+    <div
+        class="toast"
+        id="toast"
+    >
+
+        <span>✓</span>
+
+        <p id="toastMessage"></p>
+
+    </div>
+
+
+
+    <!-- YOUR EXISTING SCRIPT -->
+    <script src="script.js"></script>
+
+
+    <!-- =====================================================
+         FINAL USER DISPLAY FIX
+
+         This does NOT change your backend, donations,
+         requests, search, volunteers or anything else.
+    ====================================================== -->
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            try {
+
+                const storedUser =
+                    JSON.parse(
+                        localStorage.getItem("user") || "null"
+                    );
+
+                if (!storedUser) {
+                    return;
+                }
+
+
+                /* =========================
+                   ROLE
+                ========================== */
+
+                const role =
+                    String(
+                        storedUser.role || "user"
+                    )
+                    .trim()
+                    .toLowerCase();
+
+
+                const roleNames = {
+
+                    provider: "FOOD PROVIDER",
+
+                    recipient: "NGO / RECIPIENT",
+
+                    volunteer: "VOLUNTEER",
+
+                    admin: "ADMIN"
+
+                };
+
+
+                const roleBadge =
+                    document.getElementById(
+                        "userRoleBadge"
+                    );
+
+
+                if (roleBadge) {
+
+                    roleBadge.textContent =
+                        roleNames[role] ||
+                        role.toUpperCase();
+
+                }
+
+
+                /* =========================
+                   USER EMAIL
+                ========================== */
+
+                const emailBox =
+                    document.getElementById(
+                        "userEmail"
+                    );
+
+
+                if (emailBox) {
+
+                    emailBox.textContent =
+                        storedUser.email || "";
+
+                }
+
+
+                /* =========================
+                   WELCOME NAME
+                ========================== */
+
+                const welcomeTitle =
+                    document.getElementById(
+                        "welcomeTitle"
+                    );
+
+
+                if (welcomeTitle) {
+
+                    const name =
+                        storedUser.name ||
+                        (
+                            storedUser.email
+                                ? storedUser.email.split("@")[0]
+                                : "User"
+                        );
+
+
+                    welcomeTitle.textContent =
+                        "Welcome, " + name;
+
+                }
+
+            } catch (error) {
+
+                console.log(
+                    "User display sync error:",
+                    error
+                );
+
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>

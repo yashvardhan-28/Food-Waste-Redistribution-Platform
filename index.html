@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FoodLink | Food Waste Redistribution Platform</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         Roboto, Arial, sans-serif;
+            min-height: 100vh;
+            background: #f5f8f6;
+            color: #17372a;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 55% 45%;
+        }
+
+        /* ================= LEFT ================= */
+
+        .left {
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            padding: 52px 7%;
+            color: white;
+            background:
+                radial-gradient(circle at 15% 50%, rgba(90,190,125,.22), transparent 25%),
+                radial-gradient(circle at 85% 85%, rgba(100,210,140,.18), transparent 28%),
+                linear-gradient(135deg, #075c35, #087444 55%, #0b8050);
+        }
+
+        .left::before,
+        .left::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .left::before {
+            width: 330px;
+            height: 330px;
+            left: -170px;
+            top: 390px;
+            background: rgba(255,255,255,.055);
+        }
+
+        .left::after {
+            width: 420px;
+            height: 420px;
+            right: -220px;
+            bottom: -170px;
+            border: 1px solid rgba(255,255,255,.08);
+        }
+
+        .brand {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 15px;
+            display: grid;
+            place-items: center;
+            background: rgba(255,255,255,.12);
+            border: 1px solid rgba(255,255,255,.16);
+            font-size: 25px;
+        }
+
+        .brand h2 {
+            font-size: 25px;
+            font-weight: 750;
+            letter-spacing: -.5px;
+        }
+
+        .brand p {
+            margin-top: 3px;
+            color: rgba(255,255,255,.68);
+            font-size: 13px;
+        }
+
+        .hero {
+            position: relative;
+            z-index: 2;
+            max-width: 650px;
+            margin-top: 80px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 10px 17px;
+            border-radius: 30px;
+            background: rgba(255,255,255,.10);
+            border: 1px solid rgba(255,255,255,.13);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            margin-bottom: 28px;
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 5vw, 76px);
+            line-height: .98;
+            letter-spacing: -3.5px;
+            max-width: 680px;
+        }
+
+        .hero h1 span {
+            display: block;
+            color: #70edaa;
+        }
+
+        .hero-text {
+            max-width: 640px;
+            margin-top: 30px;
+            color: rgba(255,255,255,.72);
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .features {
+            margin-top: 45px;
+            width: min(550px, 100%);
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 17px;
+            margin-bottom: 13px;
+            border-radius: 16px;
+            background: rgba(255,255,255,.075);
+            border: 1px solid rgba(255,255,255,.11);
+        }
+
+        .feature-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: rgba(255,255,255,.10);
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .feature strong {
+            font-size: 15px;
+        }
+
+        .feature p {
+            margin-top: 4px;
+            color: rgba(255,255,255,.60);
+            font-size: 13px;
+        }
+
+        .footer {
+            position: absolute;
+            z-index: 2;
+            bottom: 35px;
+            left: 7%;
+            display: flex;
+            gap: 30px;
+            color: rgba(255,255,255,.55);
+            font-size: 13px;
+        }
+
+        /* ================= RIGHT ================= */
+
+        .right {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 45px;
+            background: #f8faf9;
+        }
+
+        .card {
+            width: min(500px, 100%);
+            background: white;
+            border: 1px solid #dfe7e2;
+            border-radius: 25px;
+            padding: 45px;
+            box-shadow: 0 25px 70px rgba(15,50,35,.10);
+        }
+
+        .welcome {
+            display: inline-block;
+            padding: 8px 13px;
+            border-radius: 20px;
+            background: #e9f6ee;
+            color: #207346;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.2px;
+            margin-bottom: 20px;
+        }
+
+        .card h1 {
+            font-size: 34px;
+            letter-spacing: -1.2px;
+            margin-bottom: 10px;
+            color: #17372a;
+        }
+
+        .subtitle {
+            color: #718078;
+            line-height: 1.55;
+            margin-bottom: 30px;
+        }
+
+        .field {
+            margin-bottom: 18px;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 750;
+            color: #263c31;
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            height: 54px;
+            border: 1px solid #d5dfd9;
+            border-radius: 12px;
+            padding: 0 16px;
+            outline: none;
+            background: white;
+            color: #1c3027;
+            font-size: 15px;
+            transition: .2s;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: #20a866;
+            box-shadow: 0 0 0 4px rgba(32,168,102,.10);
+        }
+
+        .password-box {
+            position: relative;
+        }
+
+        .password-box input {
+            padding-right: 50px;
+        }
+
+        .eye {
+            position: absolute;
+            right: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            font-size: 19px;
+        }
+
+        .submit {
+            width: 100%;
+            height: 56px;
+            border: 0;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #138a51, #20b76d);
+            color: white;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 22px rgba(20,145,83,.20);
+            transition: .2s;
+            margin-top: 6px;
+        }
+
+        .submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 13px 27px rgba(20,145,83,.27);
+        }
+
+        .submit:disabled {
+            opacity: .65;
+            cursor: wait;
+            transform: none;
+        }
+
+        .switch {
+            text-align: center;
+            margin-top: 21px;
+            font-size: 14px;
+            color: #737e78;
+        }
+
+        .switch button {
+            border: 0;
+            background: transparent;
+            color: #207346;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ================= TOAST ================= */
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 28px;
+            transform: translate(-50%, 100px);
+            background: #17372a;
+            color: white;
+            padding: 14px 22px;
+            border-radius: 12px;
+            box-shadow: 0 12px 35px rgba(0,0,0,.20);
+            opacity: 0;
+            transition: .3s;
+            z-index: 9999;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .toast.show {
+            transform: translate(-50%, 0);
+            opacity: 1;
+        }
+
+        .toast.error {
+            background: #b42318;
+        }
+
+        .toast.success {
+            background: #176b42;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 950px) {
+
+            .page {
+                grid-template-columns: 1fr;
+            }
+
+            .left {
+                min-height: auto;
+                padding: 35px 7%;
+            }
+
+            .hero {
+                margin-top: 55px;
+            }
+
+            .hero h1 {
+                font-size: 52px;
+            }
+
+            .footer {
+                position: static;
+                margin-top: 35px;
+                flex-wrap: wrap;
+            }
+
+            .right {
+                min-height: auto;
+                padding: 35px 20px;
+            }
+
+        }
+
+        @media (max-width: 550px) {
+
+            .left {
+                padding: 28px 22px;
+            }
+
+            .hero h1 {
+                font-size: 43px;
+                letter-spacing: -2px;
+            }
+
+            .hero-text {
+                font-size: 16px;
+            }
+
+            .right {
+                padding: 20px 15px;
+            }
+
+            .card {
+                padding: 28px 22px;
+                border-radius: 20px;
+            }
+
+            .card h1 {
+                font-size: 29px;
+            }
+
+            .footer {
+                gap: 15px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- ================= LEFT ================= -->
+
+    <section class="left">
+
+        <div class="brand">
+            <div class="brand-icon">🌱</div>
+
+            <div>
+                <h2>FoodLink</h2>
+                <p>Food Waste Redistribution Platform</p>
+            </div>
+        </div>
+
+        <div class="hero">
+
+            <div class="badge">
+                REDUCE WASTE • FEED COMMUNITIES
+            </div>
+
+            <h1>
+                Good food should
+                <span>never go to waste.</span>
+            </h1>
+
+            <p class="hero-text">
+                FoodLink connects restaurants, hotels, canteens
+                and events with NGOs, volunteers and communities
+                to redistribute surplus food.
+            </p>
+
+            <div class="features">
+
+                <div class="feature">
+                    <div class="feature-icon">🍱</div>
+
+                    <div>
+                        <strong>Donate Surplus Food</strong>
+                        <p>List excess food before it gets wasted.</p>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🤝</div>
+
+                    <div>
+                        <strong>Connect With Recipients</strong>
+                        <p>Find organizations that need food.</p>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🚚</div>
+
+                    <div>
+                        <strong>Volunteer & Deliver</strong>
+                        <p>Help move food from providers to people.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="footer">
+            <span>♻️ Sustainable Communities</span>
+            <span>🌍 Less Food Waste</span>
+            <span>❤️ More Impact</span>
+        </div>
+
+    </section>
+
+
+    <!-- ================= RIGHT ================= -->
+
+    <section class="right">
+
+        <div class="card">
+
+            <div class="welcome">
+                WELCOME
+            </div>
+
+            <h1 id="title">
+                Welcome back
+            </h1>
+
+            <p class="subtitle" id="subtitle">
+                Login to continue to your FoodLink account.
+            </p>
+
+
+            <form id="form">
+
+                <!-- NAME -->
+
+                <div class="field hidden" id="nameField">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <input
+                        id="name"
+                        type="text"
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                    >
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="field">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        id="email"
+                        type="email"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="field">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="password-box">
+
+                        <input
+                            id="password"
+                            type="password"
+                            placeholder="Minimum 6 characters"
+                            minlength="6"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="eye"
+                            id="eye"
+                        >
+                            👁️
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ROLE -->
+
+                <div class="field hidden" id="roleField">
+
+                    <label for="role">
+                        Account Role
+                    </label>
+
+                    <select id="role">
+
+                        <option value="recipient">
+                            Recipient / NGO
+                        </option>
+
+                        <option value="provider">
+                            Food Provider
+                        </option>
+
+                        <option value="volunteer">
+                            Volunteer
+                        </option>
+
+                        <option value="admin">
+                            Administrator
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="submit"
+                    id="submit"
+                >
+                    Login →
+                </button>
+
+            </form>
+
+
+            <div class="switch">
+
+                <span id="switchText">
+                    Don't have an account?
+                </span>
+
+                <button
+                    type="button"
+                    id="switchButton"
+                >
+                    Create an account
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+    const API = "http://localhost:5050/api";
+
+    let signupMode = false;
+
+    const form = document.getElementById("form");
+    const title = document.getElementById("title");
+    const subtitle = document.getElementById("subtitle");
+    const submit = document.getElementById("submit");
+    const switchButton = document.getElementById("switchButton");
+    const switchText = document.getElementById("switchText");
+
+    const nameField = document.getElementById("nameField");
+    const roleField = document.getElementById("roleField");
+
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const roleInput = document.getElementById("role");
+
+    const toast = document.getElementById("toast");
+
+
+    function showToast(message, error = false) {
+
+        toast.textContent = message;
+
+        toast.className = "toast show " +
+            (error ? "error" : "success");
+
+        clearTimeout(window.toastTimer);
+
+        window.toastTimer = setTimeout(() => {
+            toast.className = "toast";
+        }, 3500);
+    }
+
+
+    /* ================= TOGGLE ================= */
+
+    switchButton.addEventListener("click", function () {
+
+        signupMode = !signupMode;
+
+        if (signupMode) {
+
+            title.textContent = "Create your account";
+
+            subtitle.textContent =
+                "Join FoodLink and help good food reach people who need it.";
+
+            nameField.classList.remove("hidden");
+            roleField.classList.remove("hidden");
+
+            nameInput.required = true;
+
+            submit.textContent = "Create Account →";
+
+            switchText.textContent =
+                "Already have an account?";
+
+            switchButton.textContent =
+                "Login";
+
+        } else {
+
+            title.textContent = "Welcome back";
+
+            subtitle.textContent =
+                "Login to continue to your FoodLink account.";
+
+            nameField.classList.add("hidden");
+            roleField.classList.add("hidden");
+
+            nameInput.required = false;
+
+            submit.textContent = "Login →";
+
+            switchText.textContent =
+                "Don't have an account?";
+
+            switchButton.textContent =
+                "Create an account";
+        }
+    });
+
+
+    /* ================= PASSWORD ================= */
+
+    document.getElementById("eye")
+        .addEventListener("click", function () {
+
+            if (passwordInput.type === "password") {
+
+                passwordInput.type = "text";
+                this.textContent = "🙈";
+
+            } else {
+
+                passwordInput.type = "password";
+                this.textContent = "👁️";
+            }
+        });
+
+
+    /* ================= SUBMIT ================= */
+
+    form.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+        const email =
+            emailInput.value.trim().toLowerCase();
+
+        const password =
+            passwordInput.value;
+
+        if (!email) {
+            showToast("Please enter your email.", true);
+            return;
+        }
+
+        if (password.length < 6) {
+            showToast(
+                "Password must contain at least 6 characters.",
+                true
+            );
+            return;
+        }
+
+
+        /* ================= SIGNUP ================= */
+
+        if (signupMode) {
+
+            const name =
+                nameInput.value.trim();
+
+            const role =
+                roleInput.value;
+
+            if (!name) {
+                showToast(
+                    "Please enter your full name.",
+                    true
+                );
+                return;
+            }
+
+            submit.disabled = true;
+            submit.textContent = "Creating Account...";
+
+            try {
+
+                const response = await fetch(
+                    API + "/auth/signup",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            name: name,
+                            email: email,
+                            password: password,
+                            role: role,
+                            organizationName: "",
+                            city: "Jaipur",
+                            location: ""
+                        })
+                    }
+                );
+
+                const data =
+                    await response.json();
+
+                console.log(
+                    "SIGNUP RESPONSE:",
+                    data
+                );
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        data.error ||
+                        "Account creation failed."
+                    );
+                }
+
+                if (!data.token) {
+
+                    throw new Error(
+                        "Account created but login token was not returned."
+                    );
+                }
+
+                localStorage.setItem(
+                    "token",
+                    data.token
+                );
+
+                localStorage.setItem(
+                    "user",
+                    JSON.stringify(data.user)
+                );
+
+                localStorage.setItem(
+                    "userEmail",
+                    data.user.email
+                );
+
+                showToast(
+                    "Account created successfully!"
+                );
+
+                setTimeout(() => {
+
+                    window.location.href =
+                        "dashboard.html";
+
+                }, 700);
+
+            } catch (error) {
+
+                console.error(
+                    "SIGNUP ERROR:",
+                    error
+                );
+
+                showToast(
+                    error.message ||
+                    "Could not create account.",
+                    true
+                );
+
+            } finally {
+
+                submit.disabled = false;
+                submit.textContent =
+                    "Create Account →";
+            }
+
+            return;
+        }
+
+
+        /* ================= LOGIN ================= */
+
+        submit.disabled = true;
+        submit.textContent = "Logging in...";
+
+        try {
+
+            const response = await fetch(
+                API + "/auth/login",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                }
+            );
+
+            const data =
+                await response.json();
+
+            console.log(
+                "LOGIN RESPONSE:",
+                data
+            );
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message ||
+                    data.error ||
+                    "Login failed."
+                );
+            }
+
+            if (!data.token) {
+
+                throw new Error(
+                    "Login succeeded but no token was returned."
+                );
+            }
+
+            localStorage.setItem(
+                "token",
+                data.token
+            );
+
+            localStorage.setItem(
+                "user",
+                JSON.stringify(data.user)
+            );
+
+            localStorage.setItem(
+                "userEmail",
+                data.user.email
+            );
+
+            showToast(
+                "Login successful!"
+            );
+
+            setTimeout(() => {
+
+                window.location.href =
+                    "dashboard.html";
+
+            }, 700);
+
+        } catch (error) {
+
+            console.error(
+                "LOGIN ERROR:",
+                error
+            );
+
+            showToast(
+                error.message ||
+                "Login failed.",
+                true
+            );
+
+        } finally {
+
+            submit.disabled = false;
+            submit.textContent = "Login →";
+        }
+
+    });
+</script>
+
+</body>
+</html>
